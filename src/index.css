@@ -1,0 +1,276 @@
+/* === 커서 전역 적용 ====================== */
+html, body, * { cursor: var(--app-cursor, auto) !important; }
+a, button { cursor: var(--app-cursor-link, var(--app-cursor, auto)) !important; }
+/* ======================================= */
+
+/* ================================
+   간격 컨트롤 변수 + 뷰어 위치 변수
+   ================================ */
+:root{
+  --page-padding-x: 16vw;
+
+  /* 패턴 포스터 그리드 간격/섹션 여백 */
+  --poster-col-gap: 0%;
+  --poster-row-gap: 3.25vw;
+  --poster-section-mt: .3vw;
+  --poster-section-mb: 16vw;
+
+  /* 별빛 일러스트 섹션 간격 */
+  --starlight-my: 1vw;
+  --starlight-mb: 0vw;
+
+  /* 무빙 포스터 섹션 간격 + 썸네일 그리드 간격 */
+  --moving-my-top: 20vw;
+  --moving-my-bottom: 20vw;
+  --moving-col-gap: var(--poster-col-gap);
+  --moving-row-gap: 75px;
+
+  /* ✅ Moving Posters 제목과 그리드 사이 간격 */
+  --moving-title-mb: 1.7vw;
+
+  /* 캡션 간격(섹션별 개별 제어) */
+  --pattern-caption-mt: 1vw;
+  --moving-caption-mt: 1.4vw;
+
+  /* 키링 스트립 */
+  --keyring-my: 0vw;
+  --keyring-width: 1920px;
+  --keyring-maxw: 100%;
+
+  /* ===== 이미지 뷰어 요소 위치 변수 ===== */
+  --viewer-badge-top: 0.3vw;
+  --viewer-badge-left: 0.8333vw;
+  --viewer-prev-top: 50%;
+  --viewer-prev-left: 0.9375vw;
+  --viewer-next-top: 50%;
+  --viewer-next-right: 0.9375vw;
+
+  /* ===== 무빙 포스터(비디오) 뷰어 요소 위치 변수 ===== */
+  --vviewer-badge-top: 0.3vw;
+  --vviewer-badge-left: 0.8333vw;
+  --vviewer-prev-top: 50%;
+  --vviewer-prev-left: 0.9375vw;
+  --vviewer-next-top: 50%;
+  --vviewer-next-right: 0.9375vw;
+}
+
+/* 브라우저 기본 */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #f6f6f6;
+}
+
+/* 1920 기준 중앙 정렬 */
+.page-1920 {
+  max-width: 100vw;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: var(--page-padding-x);
+  padding-right: var(--page-padding-x);
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* 공통 섹션 타이틀 */
+.section-title{
+  margin: 140px 0 0 130px;
+  font-family: "Hakgyoansim Monggeulmonggeul", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 20px;
+}
+
+/* ✅ Moving Posters 전용: 제목 아래 간격 */
+.section-title.moving-title{
+  margin-bottom: var(--moving-title-mb) !important;
+}
+
+/* ============== 패턴 포스터 그리드 ============== */
+.poster-container {
+  width: 100%;
+  max-width: 68vw;
+  margin: var(--poster-section-mt) auto var(--poster-section-mb);
+  display: grid;
+  grid-template-columns: repeat(3, 28.53%);
+  column-gap: var(--poster-col-gap);
+  row-gap: var(--poster-row-gap);
+  align-items: start;
+  justify-items: center;
+  justify-content: center;
+}
+
+.pattern-item { display: block; }
+.pattern-media { display: block; width: 100%; }
+.pattern-caption { margin-top: var(--pattern-caption-mt); }
+
+/* 카드 프레임(공통) */
+.poster-card {
+  width: 100%;
+  aspect-ratio: 373 / 560;
+  background: #161617;
+  border-radius: 0.2vw;
+  padding: 0.8vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateZ(0);
+}
+.poster-card img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: #fff;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  will-change: transform;
+}
+.poster-card:hover img {
+  transform: scale(1.015);
+  box-shadow: 0 0.4vw 1.25vw rgba(0,0,0,0.25);
+}
+
+/* 캡션(네임택) — 패턴 포스터 */
+.poster-caption {
+  width: 100%;
+  max-width: 19.5vw;
+  margin: 0;
+  background: #ffffff;
+  color: #272727;
+  font-size: 0.625vw;
+  line-height: 1.45vw;
+  text-align: center;
+  border-radius: 0.1vw;
+  letter-spacing: 0.01vw;
+}
+
+/* 제목 */
+.page-title {
+  width: 100%;
+  max-width: 68vw;
+  margin: 2.1vw auto 0.52vw;
+  font-weight: 700;
+  letter-spacing: 0.01vw;
+}
+.page-sub {
+  width: 100%;
+  max-width: 68vw;
+  margin: 0 auto 0.52vw;
+  color: #161617;
+  font-size: 0.72vw;
+}
+
+/* 전환 섹션 */
+.divider-section { width: 100%; margin-top: 2.1vw; display: flex; align-items: center; justify-content: center; background: #d4f4f4; }
+.divider-img { width: 100%; max-width: 100vw; height: auto; display: block; object-fit: cover; }
+
+/* ===== 별빛 일러스트 섹션 ===== */
+.starlight-illustration{ margin-top: var(--starlight-my); padding-bottom: var(--starlight-mb); overflow: visible; }
+
+/* 별빛 다음 제목 여백 */
+.starlight-illustration + h2{ margin: var(--moving-my-top) 0 20px 130px !important; }
+
+/* ============== 무빙 포스터(비디오) ============== */
+.moving-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 28.53%);
+  column-gap: var(--moving-col-gap);
+  row-gap: var(--moving-row-gap);
+  max-width: 68vw;
+  margin: 0 auto var(--moving-my-bottom);
+  align-items: start;
+  justify-items: center;
+  justify-content: center;
+}
+
+.moving-item { display: block; }
+.moving-media { display: block; width: 100%; }
+.moving-caption { margin-top: var(--moving-caption-mt); }
+
+/* XL 카드 */
+.poster-card--xl { width: 43.8vw; aspect-ratio: 841 / 1240; background: #161617; border-radius: 0.2vw; padding: 0.7vw; display: flex; align-items: center; justify-content: center; transform: translateZ(0); }
+.poster-card--xl img,
+.poster-card--xl video { max-width: 100%; max-height: 100%; object-fit: contain; background: #000; transition: transform 200ms ease, box-shadow 200ms ease; will-change: transform; }
+.poster-card--xl:hover img,
+.poster-card--xl:hover video { transform: scale(1.015); box-shadow: 0 0.52vw 1.25vw rgba(0,0,0,0.25); }
+
+/* 캡션 — 무빙 포스터 */
+.poster-caption--xl { width: 43.80vw; margin: 0; background: #161617; color: #fff; font-size: 0.625vw; line-height: 1.45vw; text-align: center; border-radius: 0.1vw; letter-spacing: 0.01vw; }
+
+/* HERO 상단 체인 */
+.charms-in-hero { position: absolute; left: 0.73vw; right: 0.73vw; top: 0.73vw; height: 12%; pointer-events: none; overflow: hidden; }
+.charms-layer { position: absolute; inset: 0; pointer-events: auto; }
+
+/* ====== 전체 화면 공통 ====== */
+.viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.96); color: #fff; z-index: 9999; display: none; }
+.viewer.open { display: block; }
+.viewer-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 2.1vw; }
+.viewer-img, .viewer-video { max-width: 92vw; max-height: 90vh; object-fit: contain; box-shadow: 0 1.0vw 2.1vw rgba(0,0,0,0.5); background:#000; }
+
+/* 상단바(풀스크린/닫기) */
+.viewer-topbar { position: absolute; top: 0.625vw; left: 0.8333vw; right: 0.8333vw; display: flex; align-items: center; gap: 0.52vw; }
+.viewer-spacer { flex: 1; }
+.viewer-btn { height: 1.875vw; padding: 0 0.625vw; border-radius: 0.42vw; border: 0.05vw solid #2b2b2b; background: #111; color: #eee; font-size: 0.67vw; cursor: pointer; }
+.viewer-btn:hover { background: #1a1a1a; }
+
+/* ✅ Viewing 배지 기본 스타일 */
+.viewer-badge{
+  position: fixed;
+  height: 1.875vw;
+  padding: 0 0.625vw;
+  border-radius: 0.42vw;
+  border: 0.05vw solid #2b2b2b;
+  background: #111;
+  color: #eee;
+  font-size: 0.67vw;
+  display: flex;
+  align-items: center;
+  z-index: 10000;
+}
+
+/* 좌/우 네비 버튼 공통 */
+.viewer-nav { position: absolute; transform: translateY(-50%); width: 3vw; height: 3vw; border-radius: 50%; border: 0.05vw solid #2b2b2b; background: rgba(17,17,17,0.8); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; font-size: 1.77vw; line-height: 1; }
+.viewer-nav:hover { background: rgba(26,26,26,0.9); }
+
+/* ===== 이미지 뷰어용 위치 적용 ===== */
+.viewer--image .viewer-badge{ top: var(--viewer-badge-top); left: var(--viewer-badge-left); }
+.viewer--image .viewer-nav.prev{ top: var(--viewer-prev-top); left: var(--viewer-prev-left); }
+.viewer--image .viewer-nav.next{ top: var(--viewer-next-top); right: var(--viewer-next-right); }
+
+/* ===== 비디오 뷰어용 위치 적용 ===== */
+.viewer--video .viewer-badge{ top: var(--vviewer-badge-top); left: var(--vviewer-badge-left); }
+.viewer--video .viewer-nav.prev{ top: var(--vviewer-prev-top); left: var(--vviewer-prev-left); }
+.viewer--video .viewer-nav.next{ top: var(--vviewer-next-top); right: var(--vviewer-next-right); }
+
+.viewer-caption { position: absolute; bottom: 0.8333vw; left: 0; right: 0; text-align: center; font-size: 0.6777vw; color: rgba(255,255,255,0.85); }
+
+/* 페이지 스크롤 잠금 */
+.no-scroll { overflow: hidden; }
+
+/* Reset */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+
+body { background: #f6f6f6; color: #111; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+body.no-scroll { overflow: hidden; }
+
+/* ✅ 키링 스트립 */
+.keyring-divider{ width: 100%; display: flex; justify-content: center; align-items: center; margin: var(--keyring-my) 0; }
+.keyring-divider .keyring-img{ width: var(--keyring-width); max-width: var(--keyring-maxw); height: auto; display: block; }
+
+/* =========================
+   ✅ FULL-BLEED FOOTER
+   ========================= */
+.site-footer{ margin: 8vw 0 0; }
+.footer-full{ width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); background: #f6f6f6; }
+.footer-img{ display: block; width: 100vw; height: auto; }
+.footer-meta{ max-width: 68vw; margin: 1vw auto 1vw; font-size: 0.78vw; color: #5a5a5a; text-align: center; }
+
+/* ✅ e1 팝업 애니메이션 */
+.e1-bubble { animation: e1-pop 280ms ease-out; filter: drop-shadow(0 10px 22px rgba(0,0,0,.25)); }
+@keyframes e1-pop {
+  from { opacity: 0; transform: translate(-50%, -80%) scale(.6); }
+  to   { opacity: 1; transform: translate(-50%, -70%) scale(1); }
+}
